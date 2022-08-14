@@ -1,9 +1,29 @@
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+
+Input.PropTypes = { // props validation
+    type: PropTypes.oneOf(['text','email','password','number','file']),
+    name:PropTypes.String,
+    value:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    className:PropTypes.string,
+    variant:PropTypes.oneOf(["primary","error","primary-outline"]),
+    autoComplete:PropTypes.string,
+    required:PropTypes.bool,
+    isFocused:PropTypes.bool,
+    handleChange:PropTypes.func,
+    placeholder:PropTypes.string,
+    isError:PropTypes.bool,
+};
 
 export default function Input({
     type = 'text',
     name,
     value,
+    defaultValue,
+    variant = "primary",
+    placeholder,
+    isError,
     className,
     autoComplete,
     required,
@@ -23,15 +43,17 @@ export default function Input({
             <input
                 type={type}
                 name={name}
+                defaultValue={defaultValue}
                 value={value}
                 className={
-                    `border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm ` +
+                    `rounded-2xl bg-form-bg py-[13px] px-7 w-full ${isError && "input-error"} input-${variant} ` +
                     className
                 }
                 ref={input}
                 autoComplete={autoComplete}
                 required={required}
                 onChange={(e) => handleChange(e)}
+                placeholder={placeholder}
             />
         </div>
     );

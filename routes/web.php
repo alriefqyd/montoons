@@ -16,17 +16,19 @@ use Spatie\Permission\Models\Role;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::redirect('/','/login');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::prefix('prototype')->group(function(){
+    route::get('/login',function(){
+        return Inertia::render('Prototype/Login');
+    })->name('prototype.login');
+    route::get('/register',function (){
+        return Inertia::render('Prototype/Register');
+    })->name('prototype.register');
+});
 
 require __DIR__.'/auth.php';
