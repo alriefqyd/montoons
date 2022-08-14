@@ -29,6 +29,9 @@ Route::prefix('prototype')->group(function(){
     route::get('/register',function (){
         return Inertia::render('Prototype/Register');
     })->name('prototype.register');
+    route::get('/dashboard',function (){
+        return Inertia::render('Prototype/Dashboard');
+    })->name('prototype.dashboard');
 });
 
 require __DIR__.'/auth.php';
